@@ -1,1 +1,2 @@
-\\\\NetoworkComputer\\Users\\bob\\Documents\\TempLog.txt
+on
+\\\\Network\\Users\\bob\\Documents\\TempLog.txt

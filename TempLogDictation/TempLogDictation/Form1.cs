@@ -54,7 +54,9 @@ namespace TempLogDictation
         private string email_config = ".\\Configuration\\Email_Config.txt";
         private string tempLog = ".\\Configuration\\TempLog.txt";
         private string tempLog_config = ".\\Configuration\\TempLog_Config.txt";
+        private bool tempLog_on; //Line 0 in config
 
+        private bool email_on; //Line 0 in config
         private string sender_email_address; //Line 5 in config file
         private string sender_name; //Line 6 in config file
         private string recipient_email_address; //Line 7 in config file
@@ -83,9 +85,11 @@ namespace TempLogDictation
         private void Setup_Email_Variables()
         {
             string[] lines = System.IO.File.ReadAllLines(email_config);
-            sender_email_address = lines[4];
-            sender_name = lines[5];
-            recipient_email_address = lines[6];
+            if (lines[0] == "on") email_on = true;
+            else email_on = false;
+            sender_email_address = lines[5];
+            sender_name = lines[6];
+            recipient_email_address = lines[7];
         }
 
         private void Setup_TempLog()
@@ -93,8 +97,10 @@ namespace TempLogDictation
             try
             {
                 string[] lines = System.IO.File.ReadAllLines(tempLog_config);
-                tempLog = lines[0];
-                Console.WriteLine(lines[0]);
+                if (lines[0] == "on") tempLog_on = true;
+                else tempLog_on = false;
+                tempLog = lines[1];
+                Console.WriteLine(lines[1]);
             }
             catch (Exception e)
             {
@@ -239,8 +245,8 @@ namespace TempLogDictation
             try
             {
                 string message = name_TextArea.Text + " " + temperature_textArea.Text;
-                //Email_Temp(message);
-                Log_Temp(message);
+                if (email_on) Email_Temp(message);
+                if (tempLog_on) Log_Temp(message);
                 AutoClosingMessageBox.Show("Have a great day!!!", "Temperature sent", 3000);
                 Set_Mode(Modes.STANDBY);
                 Update_Gui();
@@ -373,10 +379,10 @@ namespace TempLogDictation
         private SmtpClient Setup_Client(string config_FilePath)
         {
             string[] lines = System.IO.File.ReadAllLines(@config_FilePath);
-            SmtpClient client = new SmtpClient(lines[0]); //Server
-            client.Port = Convert.ToInt32(lines[1]); //Port
+            SmtpClient client = new SmtpClient(lines[1]); //Server
+            client.Port = Convert.ToInt32(lines[2]); //Port
             client.EnableSsl = true;
-            client.Credentials = new NetworkCredential(lines[2], lines[3]);
+            client.Credentials = new NetworkCredential(lines[3], lines[4]);
             return client;
         }
 

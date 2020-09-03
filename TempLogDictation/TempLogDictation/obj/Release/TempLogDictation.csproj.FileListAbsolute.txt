@@ -1,7 +1,6 @@
 C:\Users\cnsef\source\repos\TempLogDictation\TempLogDictation\bin\Release\TempLogDictation.exe.config
 C:\Users\cnsef\source\repos\TempLogDictation\TempLogDictation\bin\Release\TempLogDictation.exe
 C:\Users\cnsef\source\repos\TempLogDictation\TempLogDictation\bin\Release\TempLogDictation.pdb
-C:\Users\cnsef\source\repos\TempLogDictation\TempLogDictation\obj\Release\TempLogDictation.csprojAssemblyReference.cache
 C:\Users\cnsef\source\repos\TempLogDictation\TempLogDictation\obj\Release\UserControl1.g.cs
 C:\Users\cnsef\source\repos\TempLogDictation\TempLogDictation\obj\Release\TempLogDictation_MarkupCompile.cache
 C:\Users\cnsef\source\repos\TempLogDictation\TempLogDictation\obj\Release\TempLogDictation_MarkupCompile.lref
