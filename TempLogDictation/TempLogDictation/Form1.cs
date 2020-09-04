@@ -20,7 +20,10 @@ using System.IO;
 /// </summary>
 
 /// <summary>
+/// 
 /// EMAIL CONFIGURATION TEXT FILE
+/// 
+/// email on/off
 /// server
 /// port
 /// user login name
@@ -49,18 +52,25 @@ namespace TempLogDictation
         private string[] username_commands;
         private string[] temperature_commands;
 
-        private string usernameCmds_config = ".\\Configuration\\UsernameCmds_Config.txt";
-        private string tempCmds_config = ".\\Configuration\\TempCmds_Config.txt"; 
-        private string email_config = ".\\Configuration\\Email_Config.txt";
-        private string tempLog = ".\\Configuration\\TempLog.txt";
-        private string tempLog_config = ".\\Configuration\\TempLog_Config.txt";
         private bool tempLog_on; //Line 0 in config
-
         private bool email_on; //Line 0 in config
-        private string sender_email_address; //Line 5 in config file
-        private string sender_name; //Line 6 in config file
-        private string recipient_email_address; //Line 7 in config file
-        private string email_subject; //Configured the same as the message body
+
+        //Configuration files are installed to this directory by the installation script
+        private string usernameCmds_config = "C:\\Program Files\\TempLog\\Configuration\\UsernameCmds_Config.txt";
+        private string tempCmds_config = "C:\\Program Files\\TempLog\\Configuration\\TempCmds_Config.txt"; 
+        private string email_config = "C:\\Program Files\\TempLog\\Configuration\\Email_Config.txt";
+        private string tempLog = "C:\\Program Files\\TempLog\\Configuration\\TempLog.txt";
+        private string tempLog_config = "C:\\Program Files\\TempLog\\Configuration\\TempLog_Config.txt";
+        
+        //Ver 2.0 -> Create an Email object instead to eliminate these variables
+        private string sender_email_address;
+        private string sender_name;
+        private string recipient_email_address;
+        private string email_subject;
+        private int port;
+        private string server;
+        private string email_username;
+        private string email_password;
 
         private SpeechRecognitionEngine srEngine = new SpeechRecognitionEngine(new CultureInfo ("en-US"));
 
@@ -87,6 +97,10 @@ namespace TempLogDictation
             string[] lines = System.IO.File.ReadAllLines(email_config);
             if (lines[0] == "on") email_on = true;
             else email_on = false;
+            server = lines[1];
+            port = Convert.ToInt32(lines[2]); //Port
+            email_username = lines[3];
+            email_password = lines[4];
             sender_email_address = lines[5];
             sender_name = lines[6];
             recipient_email_address = lines[7];
@@ -263,7 +277,8 @@ namespace TempLogDictation
         private void Email_Temp(string message)
         {
             email_subject = message;
-            Email email = new Email(email_config, sender_email_address, sender_name, recipient_email_address, email_subject, message);
+            Email email = new Email(server, port, email_username, email_password, sender_email_address, sender_name, 
+                recipient_email_address, email_subject, message);
             email.Send();
         }
 
@@ -370,19 +385,19 @@ namespace TempLogDictation
         private SmtpClient client;
         private MailMessage msg;
 
-        public Email(string config_FilePath, string sender_email_address, string sender_name, string recipient_email_address, string subject, string message)
+        public Email(string server, int port, string username, string password, string sender_email_address, 
+            string sender_name, string recipient_email_address, string subject, string message)
         {
-            client = Setup_Client(config_FilePath);
+            client = Setup_Client(server, port, username, password);
             msg = Setup_Message(sender_email_address, sender_name, recipient_email_address, message, subject);
         }
 
-        private SmtpClient Setup_Client(string config_FilePath)
+        private SmtpClient Setup_Client(string server, int port, string username, string password)
         {
-            string[] lines = System.IO.File.ReadAllLines(@config_FilePath);
-            SmtpClient client = new SmtpClient(lines[1]); //Server
-            client.Port = Convert.ToInt32(lines[2]); //Port
+            SmtpClient client = new SmtpClient(server);
+            client.Port = port; 
             client.EnableSsl = true;
-            client.Credentials = new NetworkCredential(lines[3], lines[4]);
+            client.Credentials = new NetworkCredential(username, password);
             return client;
         }
 

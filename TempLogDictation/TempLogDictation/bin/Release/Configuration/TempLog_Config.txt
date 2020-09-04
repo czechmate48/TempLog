@@ -1,2 +1,2 @@
 on
-\\\\Network\\Users\\bob\\Documents\TempLog.txt
+\\\\Network\Users\bob\Documents\\TempLog.txt
