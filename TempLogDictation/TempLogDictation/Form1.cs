@@ -20,7 +20,10 @@ using System.IO;
 /// </summary>
 
 /// <summary>
+/// 
 /// EMAIL CONFIGURATION TEXT FILE
+/// 
+/// email on/off
 /// server
 /// port
 /// user login name
@@ -49,15 +52,25 @@ namespace TempLogDictation
         private string[] username_commands;
         private string[] temperature_commands;
 
-        private string username_file_path = "C:\\Users\\cnsef\\Documents\\Names.txt"; //FIXME -> Change to relative path
-        private string temperature_file_path = "C:\\Users\\cnsef\\Documents\\Temperatures.txt"; //FIXME -> Change to relative path
-        private string email_FilePath = "C:\\Users\\cnsef\\Documents\\Email.txt";
-        private string logged_temperatures = "C:\\Users\\cnsef\\Documents\\Log.txt";
+        private bool tempLog_on; //Line 0 in config
+        private bool email_on; //Line 0 in config
 
-        private string sender_email_address; //Line 5 in config file
-        private string sender_name; //Line 6 in config file
-        private string recipient_email_address; //Line 7 in config file
-        private string email_subject; //Configured same as message
+        //Configuration files are installed to this directory by the installation script
+        private string usernameCmds_config = "C:\\Program Files\\TempLog\\Configuration\\UsernameCmds_Config.txt";
+        private string tempCmds_config = "C:\\Program Files\\TempLog\\Configuration\\TempCmds_Config.txt"; 
+        private string email_config = "C:\\Program Files\\TempLog\\Configuration\\Email_Config.txt";
+        private string tempLog = "C:\\Program Files\\TempLog\\Configuration\\TempLog.txt";
+        private string tempLog_config = "C:\\Program Files\\TempLog\\Configuration\\TempLog_Config.txt";
+        
+        //Ver 2.0 -> Create an Email object instead to eliminate these variables
+        private string sender_email_address;
+        private string sender_name;
+        private string recipient_email_address;
+        private string email_subject;
+        private int port;
+        private string server;
+        private string email_username;
+        private string email_password;
 
         private SpeechRecognitionEngine srEngine = new SpeechRecognitionEngine(new CultureInfo ("en-US"));
 
@@ -74,28 +87,51 @@ namespace TempLogDictation
         {
             srEngine.SetInputToDefaultAudioDevice();
             Setup_Email_Variables();
+            Setup_TempLog();
             Setup_Dictation_Mode_Commands();
             ListenFor_Initial_Command();
         }
 
         private void Setup_Email_Variables()
         {
-            string[] lines = System.IO.File.ReadAllLines(@email_FilePath);
-            sender_email_address = lines[4];
-            sender_name = lines[5];
-            recipient_email_address = lines[6];
+            string[] lines = System.IO.File.ReadAllLines(email_config);
+            if (lines[0] == "on") email_on = true;
+            else email_on = false;
+            server = lines[1];
+            port = Convert.ToInt32(lines[2]); //Port
+            email_username = lines[3];
+            email_password = lines[4];
+            sender_email_address = lines[5];
+            sender_name = lines[6];
+            recipient_email_address = lines[7];
+        }
+
+        private void Setup_TempLog()
+        {
+            try
+            {
+                string[] lines = System.IO.File.ReadAllLines(tempLog_config);
+                if (lines[0] == "on") tempLog_on = true;
+                else tempLog_on = false;
+                tempLog = lines[1];
+                Console.WriteLine(lines[1]);
+            }
+            catch (Exception e)
+            {
+                //Will save to default location
+            } 
         }
 
         private void Setup_Dictation_Mode_Commands()
         {
-            username_commands = Load_File_As_Commands(username_file_path);
+            username_commands = Load_File_As_Commands(usernameCmds_config);
 
             foreach (string name in username_commands)
             {
                 default_dictation_mode_commands.Add(name);
             }
 
-            temperature_commands = Load_File_As_Commands(temperature_file_path);
+            temperature_commands = Load_File_As_Commands(tempCmds_config);
 
             foreach (string temp in temperature_commands)
             {
@@ -117,6 +153,10 @@ namespace TempLogDictation
             return values.ToArray();
         }
 
+/**************************/
+/* COMMANDS               */
+/**************************/
+
         private void ListenFor_Initial_Command()
         {
             GrammarBuilder builder = new GrammarBuilder(new Choices(standby_mode_commands));
@@ -126,10 +166,6 @@ namespace TempLogDictation
             srEngine.RecognizeAsync(RecognizeMode.Multiple);
             srEngine.SpeechRecognized += React_To_Command;
         }
-
-/**************************/
-/* COMMANDS               */
-/**************************/
 
         private void Listen_For_Commands(string[] commands)
         {
@@ -145,15 +181,17 @@ namespace TempLogDictation
             curMode = mode;
         }
 
+        /****/
+
         private void React_To_Command(object sender, SpeechRecognizedEventArgs e)
         {
             srEngine.SpeechRecognized -= React_To_Command; //Prevents commands from being called more than once
 
-            if (curMode == Modes.STANDBY) React_To_Standby_Mode_Command(e.Result.Text);
-            else if (curMode == Modes.DICTATION) React_To_Dictation_Mode_Command(e.Result.Text);
+            if (curMode == Modes.STANDBY) React_To_Command_Standby(e.Result.Text);
+            else if (curMode == Modes.DICTATION) React_To_Command_Dictation(e.Result.Text);
         }
 
-        private void React_To_Standby_Mode_Command(string command)
+        private void React_To_Command_Standby(string command)
         {
             switch (command)
             {
@@ -168,7 +206,7 @@ namespace TempLogDictation
             }
         }
 
-        private void React_To_Dictation_Mode_Command(string command)
+        private void React_To_Command_Dictation(string command)
         {
             switch (command)
             {
@@ -214,13 +252,15 @@ namespace TempLogDictation
             }
         }
 
+        /***/
+
         private void Send_Temp()
         {
             try
             {
                 string message = name_TextArea.Text + " " + temperature_textArea.Text;
-                //Email_Temp(message);
-                Write_Temp_To_Log(message);
+                if (email_on) Email_Temp(message);
+                if (tempLog_on) Log_Temp(message);
                 AutoClosingMessageBox.Show("Have a great day!!!", "Temperature sent", 3000);
                 Set_Mode(Modes.STANDBY);
                 Update_Gui();
@@ -229,19 +269,22 @@ namespace TempLogDictation
             {
                 Console.WriteLine(ex.StackTrace);
                 AutoClosingMessageBox.Show("Please send name and temperature manually", "Unable to send message", 3000);
+                Set_Mode(Modes.STANDBY);
+                Update_Gui();
             }
         }
 
         private void Email_Temp(string message)
         {
             email_subject = message;
-            Email email = new Email(email_FilePath, sender_email_address, sender_name, recipient_email_address, email_subject, message);
+            Email email = new Email(server, port, email_username, email_password, sender_email_address, sender_name, 
+                recipient_email_address, email_subject, message);
             email.Send();
         }
 
-        private void Write_Temp_To_Log(string message)
+        private void Log_Temp(string message)
         {
-            StreamWriter file = new StreamWriter(@logged_temperatures, true);
+            StreamWriter file = new StreamWriter(tempLog, true);
             file.WriteLine(DateTime.Now + " : " + message);
             file.Flush();
             file.Close();
@@ -300,8 +343,8 @@ namespace TempLogDictation
 
         private void Dictate_Click(object sender, EventArgs e)
         {
-            if (curMode == Modes.DICTATION) React_To_Dictation_Mode_Command(STOP);
-            else if (curMode == Modes.STANDBY) React_To_Standby_Mode_Command(SAVE_TEMP);
+            if (curMode == Modes.DICTATION) React_To_Command_Dictation(STOP);
+            else if (curMode == Modes.STANDBY) React_To_Command_Standby(SAVE_TEMP);
         }
 
         private void Email_Click(object sender, EventArgs e)
@@ -317,7 +360,7 @@ namespace TempLogDictation
 
         private void Create_Temp_File()
         {
-            StreamWriter file2 = new StreamWriter(@temperature_file_path, true);
+            StreamWriter file2 = new StreamWriter(tempCmds_config, true);
 
             for (float i = 0; i < 125; i += .1f)
             {
@@ -342,19 +385,19 @@ namespace TempLogDictation
         private SmtpClient client;
         private MailMessage msg;
 
-        public Email(string config_FilePath, string sender_email_address, string sender_name, string recipient_email_address, string subject, string message)
+        public Email(string server, int port, string username, string password, string sender_email_address, 
+            string sender_name, string recipient_email_address, string subject, string message)
         {
-            client = Setup_Client(config_FilePath);
+            client = Setup_Client(server, port, username, password);
             msg = Setup_Message(sender_email_address, sender_name, recipient_email_address, message, subject);
         }
 
-        private SmtpClient Setup_Client(string config_FilePath)
+        private SmtpClient Setup_Client(string server, int port, string username, string password)
         {
-            string[] lines = System.IO.File.ReadAllLines(@config_FilePath);
-            SmtpClient client = new SmtpClient(lines[0]); //Server
-            client.Port = Convert.ToInt32(lines[1]); //Port
+            SmtpClient client = new SmtpClient(server);
+            client.Port = port; 
             client.EnableSsl = true;
-            client.Credentials = new NetworkCredential(lines[2], lines[3]);
+            client.Credentials = new NetworkCredential(username, password);
             return client;
         }
 

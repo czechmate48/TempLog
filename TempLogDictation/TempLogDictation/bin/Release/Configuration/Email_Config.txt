@@ -1,0 +1,9 @@
+on
+smtp.gmail.com
+587
+test@gmail.com
+[Password]
+test@gmail.com
+Temperature Report
+test@yahoo.com
+
