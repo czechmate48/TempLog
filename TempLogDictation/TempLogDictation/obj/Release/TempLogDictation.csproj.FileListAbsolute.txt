@@ -6,7 +6,8 @@ C:\Users\cnsef\source\repos\TempLogDictation\TempLogDictation\obj\Release\TempLo
 C:\Users\cnsef\source\repos\TempLogDictation\TempLogDictation\obj\Release\TempLogDictation_MarkupCompile.lref
 C:\Users\cnsef\source\repos\TempLogDictation\TempLogDictation\obj\Release\UserControl1.baml
 C:\Users\cnsef\source\repos\TempLogDictation\TempLogDictation\obj\Release\TempLogDictation.g.resources
-C:\Users\cnsef\source\repos\TempLogDictation\TempLogDictation\obj\Release\TempLogDictation.TempLog.resources
+C:\Users\cnsef\source\repos\TempLogDictation\TempLogDictation\obj\Release\TempLogDictation.PopUp.resources
+C:\Users\cnsef\source\repos\TempLogDictation\TempLogDictation\obj\Release\TempLogDictation.Temp_Log_Dictator.resources
 C:\Users\cnsef\source\repos\TempLogDictation\TempLogDictation\obj\Release\TempLogDictation.Properties.Resources.resources
 C:\Users\cnsef\source\repos\TempLogDictation\TempLogDictation\obj\Release\TempLogDictation.csproj.GenerateResource.cache
 C:\Users\cnsef\source\repos\TempLogDictation\TempLogDictation\obj\Release\TempLogDictation.csproj.CoreCompileInputs.cache

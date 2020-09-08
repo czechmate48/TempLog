@@ -1,0 +1,13 @@
+#####################
+EMAIL_CONFIG.TXT   
+#####################
+email on/off				-> Determines whether the email functionality is used in the program
+server						-> The server that will send the email; Ex. smtp.gmail.com
+port						-> The port to send the email on
+user login name				-> The username for the account linked to the sender's email address
+user password				-> The password for the account linked to the sender's email address
+sender email address		-> The email address to be used for sending the email
+sender name					-> The name of the individual/entity sending the email address
+recipient emial address		-> The email address of the recipient of the email
+
+#####################

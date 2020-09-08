@@ -1,0 +1,4 @@
+tempLog_config=C:\Users\cnsef\source\repos\TempLogDictation\TempLogDictation\bin\Debug\Configuration\tempLog_config.txt
+usernameCmds_config=C:\Users\cnsef\source\repos\TempLogDictation\TempLogDictation\bin\Debug\Configuration\usernameCmds_config.txt
+tempCmds_config=C:\Users\cnsef\source\repos\TempLogDictation\TempLogDictation\bin\Debug\Configuration\tempCmds_config.txt
+email_config=C:\Users\cnsef\source\repos\TempLogDictation\TempLogDictation\bin\Debug\Configuration\email_config.txt

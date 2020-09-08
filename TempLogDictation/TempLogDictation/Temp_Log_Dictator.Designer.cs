@@ -1,6 +1,6 @@
 ﻿namespace TempLogDictation
 {
-    partial class TempLog
+    partial class Temp_Log_Dictator
     {
         /// <summary>
         /// Required designer variable.
@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.name_TextArea = new System.Windows.Forms.RichTextBox();
-            this.Email = new System.Windows.Forms.Button();
-            this.Dictate = new System.Windows.Forms.Button();
-            this.temperature_textArea = new System.Windows.Forms.RichTextBox();
+            this.name_rtb = new System.Windows.Forms.RichTextBox();
+            this.send_btn = new System.Windows.Forms.Button();
+            this.dictate_btn = new System.Windows.Forms.Button();
+            this.temp_rtb = new System.Windows.Forms.RichTextBox();
             this.name_label = new System.Windows.Forms.Label();
             this.Temp = new System.Windows.Forms.Label();
             this.Commands = new System.Windows.Forms.Label();
@@ -43,59 +43,59 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.clear_button = new System.Windows.Forms.Button();
+            this.clear_btn = new System.Windows.Forms.Button();
             this.cancel = new System.Windows.Forms.Label();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.SuspendLayout();
             // 
-            // name_TextArea
+            // name_rtb
             // 
-            this.name_TextArea.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.name_rtb.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.name_TextArea.Font = new System.Drawing.Font("Microsoft Sans Serif", 60F);
-            this.name_TextArea.Location = new System.Drawing.Point(122, 12);
-            this.name_TextArea.Name = "name_TextArea";
-            this.name_TextArea.Size = new System.Drawing.Size(849, 263);
-            this.name_TextArea.TabIndex = 1;
-            this.name_TextArea.Text = "";
+            this.name_rtb.Font = new System.Drawing.Font("Microsoft Sans Serif", 60F);
+            this.name_rtb.Location = new System.Drawing.Point(122, 12);
+            this.name_rtb.Name = "name_rtb";
+            this.name_rtb.Size = new System.Drawing.Size(849, 263);
+            this.name_rtb.TabIndex = 1;
+            this.name_rtb.Text = "";
             // 
-            // Email
+            // send_btn
             // 
-            this.Email.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Email.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Email.Location = new System.Drawing.Point(736, 691);
-            this.Email.Name = "Email";
-            this.Email.Size = new System.Drawing.Size(235, 100);
-            this.Email.TabIndex = 5;
-            this.Email.Text = "Send";
-            this.Email.UseVisualStyleBackColor = true;
-            this.Email.Click += new System.EventHandler(this.Email_Click);
+            this.send_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.send_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.send_btn.Location = new System.Drawing.Point(736, 691);
+            this.send_btn.Name = "send_btn";
+            this.send_btn.Size = new System.Drawing.Size(235, 100);
+            this.send_btn.TabIndex = 5;
+            this.send_btn.Text = "Send";
+            this.send_btn.UseVisualStyleBackColor = true;
+            this.send_btn.Click += new System.EventHandler(this.Email_Click);
             // 
-            // Dictate
+            // dictate_btn
             // 
-            this.Dictate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.dictate_btn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Dictate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.Dictate.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Dictate.Location = new System.Drawing.Point(122, 586);
-            this.Dictate.Name = "Dictate";
-            this.Dictate.Size = new System.Drawing.Size(608, 205);
-            this.Dictate.TabIndex = 3;
-            this.Dictate.Text = "Save Temp";
-            this.Dictate.UseVisualStyleBackColor = false;
-            this.Dictate.Click += new System.EventHandler(this.Dictate_Click);
+            this.dictate_btn.BackColor = System.Drawing.Color.Green;
+            this.dictate_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dictate_btn.Location = new System.Drawing.Point(122, 586);
+            this.dictate_btn.Name = "dictate_btn";
+            this.dictate_btn.Size = new System.Drawing.Size(608, 205);
+            this.dictate_btn.TabIndex = 3;
+            this.dictate_btn.Text = "SAVE TEMP";
+            this.dictate_btn.UseVisualStyleBackColor = false;
+            this.dictate_btn.Click += new System.EventHandler(this.Dictate_Click);
             // 
-            // temperature_textArea
+            // temp_rtb
             // 
-            this.temperature_textArea.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.temp_rtb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.temperature_textArea.Font = new System.Drawing.Font("Microsoft Sans Serif", 60F);
-            this.temperature_textArea.Location = new System.Drawing.Point(122, 292);
-            this.temperature_textArea.Name = "temperature_textArea";
-            this.temperature_textArea.Size = new System.Drawing.Size(849, 288);
-            this.temperature_textArea.TabIndex = 2;
-            this.temperature_textArea.Text = "";
+            this.temp_rtb.Font = new System.Drawing.Font("Microsoft Sans Serif", 60F);
+            this.temp_rtb.Location = new System.Drawing.Point(122, 292);
+            this.temp_rtb.Name = "temp_rtb";
+            this.temp_rtb.Size = new System.Drawing.Size(849, 288);
+            this.temp_rtb.TabIndex = 2;
+            this.temp_rtb.Text = "";
             // 
             // name_label
             // 
@@ -236,17 +236,17 @@
             this.label4.TabIndex = 19;
             this.label4.Text = "4) Say \"send\"";
             // 
-            // clear_button
+            // clear_btn
             // 
-            this.clear_button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.clear_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clear_button.Location = new System.Drawing.Point(736, 586);
-            this.clear_button.Name = "clear_button";
-            this.clear_button.Size = new System.Drawing.Size(235, 99);
-            this.clear_button.TabIndex = 4;
-            this.clear_button.Text = "Clear";
-            this.clear_button.UseVisualStyleBackColor = true;
-            this.clear_button.Click += new System.EventHandler(this.clear_button_Click);
+            this.clear_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.clear_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clear_btn.Location = new System.Drawing.Point(736, 586);
+            this.clear_btn.Name = "clear_btn";
+            this.clear_btn.Size = new System.Drawing.Size(235, 99);
+            this.clear_btn.TabIndex = 4;
+            this.clear_btn.Text = "Clear";
+            this.clear_btn.UseVisualStyleBackColor = true;
+            this.clear_btn.Click += new System.EventHandler(this.Clear_button_Click);
             // 
             // cancel
             // 
@@ -271,14 +271,14 @@
             this.splitter1.TabIndex = 9;
             this.splitter1.TabStop = false;
             // 
-            // TempLog
+            // Temp_Log_Dictator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1352, 803);
             this.Controls.Add(this.cancel);
-            this.Controls.Add(this.clear_button);
+            this.Controls.Add(this.clear_btn);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -291,11 +291,11 @@
             this.Controls.Add(this.splitter1);
             this.Controls.Add(this.Temp);
             this.Controls.Add(this.name_label);
-            this.Controls.Add(this.temperature_textArea);
-            this.Controls.Add(this.Dictate);
-            this.Controls.Add(this.Email);
-            this.Controls.Add(this.name_TextArea);
-            this.Name = "TempLog";
+            this.Controls.Add(this.temp_rtb);
+            this.Controls.Add(this.dictate_btn);
+            this.Controls.Add(this.send_btn);
+            this.Controls.Add(this.name_rtb);
+            this.Name = "Temp_Log_Dictator";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TEMPERATURE LOG";
             this.Load += new System.EventHandler(this.TempLog_Load);
@@ -306,11 +306,11 @@
 
         #endregion
 
-        private System.Windows.Forms.RichTextBox name_TextArea;
-        private System.Windows.Forms.Button Email;
-        private System.Windows.Forms.Button Dictate;
-        private System.Windows.Forms.Button clear_button;
-        private System.Windows.Forms.RichTextBox temperature_textArea;
+        private System.Windows.Forms.RichTextBox name_rtb;
+        private System.Windows.Forms.Button send_btn;
+        private System.Windows.Forms.Button dictate_btn;
+        private System.Windows.Forms.Button clear_btn;
+        private System.Windows.Forms.RichTextBox temp_rtb;
         private System.Windows.Forms.Label name_label;
         private System.Windows.Forms.Label Temp;
         private System.Windows.Forms.Label Commands;

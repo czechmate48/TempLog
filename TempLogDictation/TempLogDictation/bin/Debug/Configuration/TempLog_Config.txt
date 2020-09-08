@@ -1,2 +1,2 @@
-on
-\\\\Network\\Users\\bob\\Documents\\TempLog.txt
+tempLog_on=on
+tempLog_savePath=C:\\Users\\cnsef\\Documents\\templog.txt
