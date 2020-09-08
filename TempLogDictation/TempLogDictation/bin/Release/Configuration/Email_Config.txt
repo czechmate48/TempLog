@@ -1,9 +1,10 @@
-on
-smtp.gmail.com
-587
-test@gmail.com
-[Password]
-test@gmail.com
-Temperature Report
-test@yahoo.com
+email_on=off
+server=smtp.gmail.com
+port=587
+email_username=test@gmail.com
+email_password=*type password here*
+sender_email_address=test@gmail.com
+sender_name=Temperature Report
+recipient_email_address=test@yahoo.com
+
 

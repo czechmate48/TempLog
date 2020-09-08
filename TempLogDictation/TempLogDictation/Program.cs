@@ -16,7 +16,7 @@ namespace TempLogDictation
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new TempLog());
+            Application.Run(new Temp_Log_Dictator());
         }
     }
 }
