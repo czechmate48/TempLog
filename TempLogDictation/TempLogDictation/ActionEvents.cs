@@ -19,7 +19,7 @@ namespace ActionEvents
     {
         public List<Task> Fire()
         {
-            return new List<Task>() { Task.STOP_VOICE_RECOGNITION, Task.PLAY_COMMAND_SOUND, Task.SET_MODE_DICTATE, Task.START_VOICE_RECOGNITION };
+            return new List<Task>() { Task.STOP_VOICE_RECOGNITION, Task.SET_MODE_DICTATE, Task.START_VOICE_RECOGNITION };
         }
     }
 
@@ -61,7 +61,6 @@ namespace ActionEvents
             tasks.Add(Task.SET_NAME_UNFILLED);
             tasks.Add(Task.SET_TEMP_UNFILLED);
             tasks.Add(Task.UPDATE_GUI);
-            tasks.Add(Task.PLAY_COMMAND_SOUND);
             tasks.Add(Task.START_VOICE_RECOGNITION);
             return tasks;
         }
@@ -101,7 +100,6 @@ namespace ActionEvents
             tasks.Add(Task.WRITE_NAME);
             tasks.Add(Task.SET_NAME_FILLED);
             tasks.Add(Task.UPDATE_GUI);
-            tasks.Add(Task.PLAY_COMMAND_SOUND);
             tasks.Add(Task.START_VOICE_RECOGNITION);
             return tasks;
         }
@@ -116,7 +114,6 @@ namespace ActionEvents
             tasks.Add(Task.WRITE_TEMP);
             tasks.Add(Task.SET_TEMP_FILLED);
             tasks.Add(Task.UPDATE_GUI);
-            tasks.Add(Task.PLAY_COMMAND_SOUND);
             tasks.Add(Task.START_VOICE_RECOGNITION);
             return tasks;
         }

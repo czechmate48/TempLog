@@ -23,8 +23,6 @@ using System.Threading;
 
 namespace TempLogDictation
 {
-    //FIXME -> When should sounds be called if both Popups and commands manage them?
-
     public partial class Temp_Log_Dictator : Form
     {
         private Mode cur_mode;
@@ -41,7 +39,7 @@ namespace TempLogDictation
         private List<Command> usernames;
         private List<Command> temperatures;
 
-        private Configuration path_config = new Configuration("C:\\Users\\cnsef\\source\\repos\\TempLogDictation\\TempLogDictation\\bin\\Debug\\Configuration\\Path_Config.txt"); //FIXME -> Set relative
+        private Configuration path_config = new Configuration("Configuration\\Path_Config.txt");
         private Configuration tempLog_config;
         private Configuration usernameCmds_config;
         private Configuration tempCmds_config;
@@ -56,7 +54,7 @@ namespace TempLogDictation
         private Log tempLog = new Log();
 
         private SpeechRecognitionEngine srEngine;
-        private Task_Sequence cur_task_sequence;
+        private Thread timeout;
 
         /**************************/
         /* INITIALIZE             */
@@ -83,6 +81,7 @@ namespace TempLogDictation
             Initialize_TempLog();
 
             Activate_Voice_Recognition();
+            Initialize_Timeout();
         }
 
         private void Initialize_Modes()
@@ -112,7 +111,7 @@ namespace TempLogDictation
             stop = new Command("Stop", new SoundPlayer(@"C:\Windows\Media\Speech Off.wav"),
                 new List<ActionEvent> { new Set_Standby_Mode_Active(), new Clear_Name_Temp(), new Set_Button_Standby()});
             clear = new Command("Clear", new SoundPlayer(@"C:\Windows\Media\Windows Balloon.wav"), new List<ActionEvent> { new Clear_Name_Temp()});
-            send = new Command("Send", new SoundPlayer(@"C:\Windows\Media\chord.wav"), new List<ActionEvent>{ new Send_TempReport() }); //Create empty command so send is present in cmd_library. Update with correct values in Command_Recognized()
+            send = new Command("Send", new List<ActionEvent>{ new Send_TempReport() }); //Create empty command so send is present in cmd_library. Update with correct values in Command_Recognized()
         }
 
         private void Load_Configuration_Files()
@@ -224,9 +223,9 @@ namespace TempLogDictation
 
         private void Command_Fire(Command command)
         {
-            cur_task_sequence = command.Generate_Task_Sequence();
             gsfactory_snapshot = gsfactory;
-            foreach (Instruction.Task task in cur_task_sequence.tasks) Command_Execute(command, task);
+            foreach (Instruction.Task task in command.Generate_Task_Sequence().tasks) Command_Execute(command, task);
+            command.PlaySound();
         }
 
         private void Command_Execute(Command command, Instruction.Task task)
@@ -235,7 +234,6 @@ namespace TempLogDictation
             {
                 case Instruction.Task.STOP_VOICE_RECOGNITION:       Disable_Voice_Recognition(); break;
                 case Instruction.Task.START_VOICE_RECOGNITION:      Activate_Voice_Recognition(); break;
-                case Instruction.Task.PLAY_COMMAND_SOUND:           command.sound.Play(); break;
                 case Instruction.Task.CLEAR_NAME:                   name_rtb.Clear(); break;
                 case Instruction.Task.CLEAR_TEMP:                   temp_rtb.Clear(); break;
                 case Instruction.Task.SET_DICTATE_BUTTON_GREEN:     dictate_btn.BackColor = Color.Green; break;

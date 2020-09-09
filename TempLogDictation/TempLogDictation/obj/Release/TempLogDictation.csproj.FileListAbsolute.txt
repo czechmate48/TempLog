@@ -13,3 +13,4 @@ C:\Users\cnsef\source\repos\TempLogDictation\TempLogDictation\obj\Release\TempLo
 C:\Users\cnsef\source\repos\TempLogDictation\TempLogDictation\obj\Release\TempLogDictation.csproj.CoreCompileInputs.cache
 C:\Users\cnsef\source\repos\TempLogDictation\TempLogDictation\obj\Release\TempLogDictation.exe
 C:\Users\cnsef\source\repos\TempLogDictation\TempLogDictation\obj\Release\TempLogDictation.pdb
+C:\Users\cnsef\source\repos\TempLogDictation\TempLogDictation\obj\Release\TempLogDictation_Content.g.cs

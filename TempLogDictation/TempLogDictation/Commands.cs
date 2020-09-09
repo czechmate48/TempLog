@@ -51,6 +51,12 @@ namespace Commands
             this.actions = actions;
         }
 
+        public Command(string cue, List<ActionEvent> actions)
+        {
+            this.cue = cue;
+            this.actions = actions;
+        }
+
         public Command(string cue)
         {
             this.cue = cue;
@@ -75,6 +81,14 @@ namespace Commands
 
             return new Task_Sequence(tasks);
 
+        }
+
+        public void PlaySound()
+        {
+            if (sound != null)
+            {
+                sound.Play();
+            }
         }
     }
 }

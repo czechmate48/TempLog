@@ -1,2 +1,2 @@
 tempLog_on=on
-tempLog_savePath=C:\\Users\\cnsef\\Documents\\templog.txt
+tempLog_savePath=C:\\Users\\Public\\Documents\\TemperatureLog.txt
