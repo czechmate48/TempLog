@@ -3,8 +3,14 @@ using System.Collections.Generic;
 
 public class Configuration
 {
+    /// <summary>
+    /// Loads a configuration file. A configuration file should have 'variable=value' structure set on new lines of a text file
+    /// Ex. car=ford
+    ///     tires=firestone
+    /// </summary>
+
     public string path { get; set; }
-    public Dictionary<string, string> contents { get; set; } //Variable Name, String in file
+    public Dictionary<string, string> contents { get; set; } //Variable, Value [variable=value]
 
 	public Configuration(string path)
 	{

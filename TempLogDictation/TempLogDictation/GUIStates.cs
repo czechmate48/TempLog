@@ -12,6 +12,11 @@ namespace GUIStates
 
     public class Component_Assembly
     {
+        /// <summary>
+        /// Holds all possible ComponentStates for all Components in the program. 
+        /// These ComponentStates are compiled into a Status_Library for lookup and retrieval. 
+        /// </summary>
+
         //COMPONENT STATUS
         public const string FILLED = "FILLED";
         public const string UNFILLED = "UNFILLED";
@@ -35,27 +40,34 @@ namespace GUIStates
 
     public class GUIState_Factory
     {
+        /// <summary>
+        /// Holds all ComponentState objects in the program. Each ComponentState is updated by the program and stored in the factory.
+        /// Whenever the program needs a snapshot of what state all items are in, the developer calls Create_GUIState().
+        /// Based on ComponentStates at that time, a GUIState is returned that references a popup. 
+        /// The popup indicates whether the user action yeilds an error or success.
+        /// </summary>
+
         private Component_Assembly assembler;
 
-        public ComponentState<RichTextBox> name_box_state { get; set; }
-        public ComponentState<RichTextBox> temp_box_state { get; set; }
-        public ComponentState<Button> dictate_btn_state { get; set; }
-        public ComponentState<Button> clear_btn_state { get; set; }
-        public ComponentState<Button> send_btn_state { get; set; }
-        public ComponentState<Email> email_state { get; set; }
-        public ComponentState<Log> tempLog_state { get; set; }
+        public ComponentState<RichTextBox> Name_box_state { get; set; }
+        public ComponentState<RichTextBox> Temp_box_state { get; set; }
+        public ComponentState<Button> Dictate_btn_state { get; set; }
+        public ComponentState<Button> Clear_btn_state { get; set; }
+        public ComponentState<Button> Send_btn_state { get; set; }
+        public ComponentState<Email> Email_state { get; set; }
+        public ComponentState<Log> TempLog_state { get; set; }
 
         public GUIState_Factory(ComponentState<RichTextBox> name_box_state, ComponentState<RichTextBox> temp_box_state, ComponentState<Button> dictate_btn_state,
             ComponentState<Button> clear_btn_state, ComponentState<Button> send_btn_state, ComponentState<Email> email_state, ComponentState<Log> tempLog_state)
         {
             this.assembler = new Component_Assembly();
-            this.name_box_state = name_box_state;
-            this.temp_box_state = temp_box_state;
-            this.dictate_btn_state = dictate_btn_state;
-            this.clear_btn_state = clear_btn_state;
-            this.send_btn_state = send_btn_state;
-            this.email_state = email_state;
-            this.tempLog_state = tempLog_state;
+            this.Name_box_state = name_box_state;
+            this.Temp_box_state = temp_box_state;
+            this.Dictate_btn_state = dictate_btn_state;
+            this.Clear_btn_state = clear_btn_state;
+            this.Send_btn_state = send_btn_state;
+            this.Email_state = email_state;
+            this.TempLog_state = tempLog_state;
         }
 
         public GUIState Create_GUIState()
@@ -72,7 +84,7 @@ namespace GUIStates
             Status uf = new Status(Component_Assembly.UNFILLED);
             Status cl = new Status(Component_Assembly.CLICKED);
 
-            return (name_box_state.status.name == uf.name && send_btn_state.status.name == cl.name);
+            return (Name_box_state.Status.name == uf.name && Send_btn_state.Status.name == cl.name);
         }
 
         private bool Temp_Error_Present()
@@ -80,7 +92,7 @@ namespace GUIStates
             Status uf = new Status(Component_Assembly.UNFILLED);
             Status cl = new Status(Component_Assembly.CLICKED);
 
-            return (temp_box_state.status.name == uf.name && send_btn_state.status.name == cl.name);
+            return (Temp_box_state.Status.name == uf.name && Send_btn_state.Status.name == cl.name);
         }
 
         private bool Email_Error_Present()
@@ -88,7 +100,7 @@ namespace GUIStates
             Status fl = new Status(Component_Assembly.FAIL);
             Status cl = new Status(Component_Assembly.CLICKED);
 
-            return (email_state.status.name == fl.name && send_btn_state.status.name == cl.name);
+            return (Email_state.Status.name == fl.name && Send_btn_state.Status.name == cl.name);
         }
 
         private bool Log_Error_Present()
@@ -96,7 +108,7 @@ namespace GUIStates
             Status fl = new Status(Component_Assembly.FAIL);
             Status cl = new Status(Component_Assembly.CLICKED);
 
-            return (tempLog_state.status.name == fl.name && send_btn_state.status.name == cl.name);
+            return (TempLog_state.Status.name == fl.name && Send_btn_state.Status.name == cl.name);
         }
     }
 
@@ -106,16 +118,12 @@ namespace GUIStates
     {
         public PopUp pup;
 
-        public GUIState()
-        {
-
-        }
+        public GUIState() { }
 
         public virtual void DisplayPopUp()
         {
             pup.Display();
         }
-
     }
 
     public class Name_Error : GUIState

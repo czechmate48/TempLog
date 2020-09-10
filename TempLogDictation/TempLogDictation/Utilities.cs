@@ -3,6 +3,11 @@ using System.IO;
 
 public class Utilities
 {
+    /// <summary>
+    /// Used to create Temperature Commands
+    /// </summary>
+    /// <param name="filePath"></param>
+
     public static void Create_Temp_File(string filePath)
     {
         StreamWriter file2 = new StreamWriter(filePath, true);

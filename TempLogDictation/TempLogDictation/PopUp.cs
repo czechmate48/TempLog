@@ -13,6 +13,11 @@ namespace TempLogDictation
 {
     public partial class PopUp : Form
     {
+        /// <summary>
+        /// Creates a PopUp window that will stay open for a specified amount of time and then automatically close.
+        /// Plays with or without a sound based on sound value passed into the constructor
+        /// </summary>
+
         private Timer timer;
         private SoundPlayer sound;
 
@@ -32,6 +37,19 @@ namespace TempLogDictation
             timer.Tick += new EventHandler(OnElapsedTime);
         }
 
+        public PopUp(string header, string subhdr, Color subhdr_color, string msg, int duration)
+        {
+            InitializeComponent();
+            this.CenterToScreen();
+            this.Text = header;
+            subheader.Text = subhdr;
+            subheader.ForeColor = subhdr_color;
+            message.Text = msg;
+            timer = new Timer();
+            timer.Interval = duration;
+            timer.Tick += new EventHandler(OnElapsedTime);
+        }
+
         private void OnElapsedTime(object sender, EventArgs e)
         {
             timer.Stop();
@@ -40,7 +58,7 @@ namespace TempLogDictation
 
         public void Display()
         {
-            sound.Play();
+            if (sound != null) sound.Play();
             timer.Start();
             this.Show();
         }
@@ -65,7 +83,6 @@ namespace TempLogDictation
                 default: return new PopUp("Unknown Error", "ERROR", Color.Red, "An unknown error has occurred", 3000, error);
             }
         }
-
     }
 
 }

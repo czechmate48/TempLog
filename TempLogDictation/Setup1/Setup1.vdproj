@@ -70,13 +70,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_601210C36ADB3B8F2206361F622AEDDE"
+        "OwnerKey" = "8:_DCEFF55B84094612B4B29F783FBE4A68"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_DCEFF55B84094612B4B29F783FBE4A68"
+        "OwnerKey" = "8:_601210C36ADB3B8F2206361F622AEDDE"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -97,13 +97,21 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:Release\\Setup.msi"
+        "OutputFilename" = "8:Release\\Install.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -113,6 +121,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -392,7 +416,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:TempLog"
         "ProductCode" = "8:{553458FD-D7C5-4301-8B84-C8187D5AC6DE}"
-        "PackageCode" = "8:{38C226C8-A54F-4937-B5A3-172C8424C9A1}"
+        "PackageCode" = "8:{A2636CA5-9158-4524-AFFD-4086DF4E6E7D}"
         "UpgradeCode" = "8:{40C63DD5-FE60-4BA8-B820-55B120AB73C5}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
@@ -512,20 +536,6 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_1BCF51F677414D45A475C642655D3D84"
-            {
-            "Name" = "8:TempLog"
-            "Arguments" = "8:"
-            "Description" = "8:"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:_DCEFF55B84094612B4B29F783FBE4A68"
-            "Folder" = "8:_C3009422E9784362921C1104824F7191"
-            "WorkingFolder" = "8:_F4A95080F70D4AD3A835140382CF5871"
-            "Icon" = "8:_C5B8AED44B524D7BBA59735E756B813C"
-            "Feature" = "8:"
-            }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_49179F9BC55942ED9D436A3B772B1EB3"
             {
             "Name" = "8:TempLog"
