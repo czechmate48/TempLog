@@ -5,6 +5,7 @@ email_username=test@gmail.com
 email_password=*type password here*
 sender_email_address=test@gmail.com
 sender_name=Temperature Report
+subject=Temperature Report
 recipient_email_address=test@yahoo.com
 
 
