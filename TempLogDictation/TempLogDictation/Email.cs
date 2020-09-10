@@ -4,33 +4,38 @@ using System.Net.Mail;
 
 public class Email
 {
+    /// <summary>
+    /// Creates an email message from a specified email account. 
+    /// Email message will be sent from the "Sender_email_address" to the "Recipient_email_address" 
+    /// </summary>
+
     private SmtpClient client;
     private MailMessage msg;
 
-    private string server { get; set; }
-    private int port { get; set; }
-    private string username { get; set; }
-    private string password { get; set; }
-    private string sender_email_address { get; set; }
-    private string sender_name { get; set; }
-    private string recipient_email_address { get; set; }
-    public string subject { get; set; }
-    public string message { get; set; }
+    private string Server { get; set; }
+    private int Port { get; set; }
+    private string Username { get; set; }
+    private string Password { get; set; }
+    private string Sender_email_address { get; set; }
+    private string Sender_name { get; set; }
+    private string Recipient_email_address { get; set; }
+    public string Subject { get; set; }
+    public string Message { get; set; }
 
-    public Email() { } //Needed for initiliazation
+    public Email() { }
 
     public Email(string server, int port, string username, string password, string sender_email_address,
         string sender_name, string recipient_email_address, string subject, string message)
     {
-        this.server = server;
-        this.port = port;
-        this.username = username;
-        this.password = password;
-        this.sender_email_address = sender_email_address;
-        this.sender_name = sender_name;
-        this.recipient_email_address = recipient_email_address;
-        this.subject = subject;
-        this.message = message;
+        this.Server = server;
+        this.Port = port;
+        this.Username = username;
+        this.Password = password;
+        this.Sender_email_address = sender_email_address;
+        this.Sender_name = sender_name;
+        this.Recipient_email_address = recipient_email_address;
+        this.Subject = subject;
+        this.Message = message;
 
         client = Setup_Client(server, port, username, password);
         msg = Setup_Message(sender_email_address, sender_name, recipient_email_address, message, subject);
@@ -60,8 +65,8 @@ public class Email
 
     public void Update()
     {
-        client = Setup_Client(server, port, username, password);
-        msg = Setup_Message(sender_email_address, sender_name, recipient_email_address, message, subject);
+        client = Setup_Client(Server, Port, Username, Password);
+        msg = Setup_Message(Sender_email_address, Sender_name, Recipient_email_address, Message, Subject);
     }
 
     public void Send()

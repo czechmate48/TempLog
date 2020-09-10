@@ -3,9 +3,13 @@ using System.IO;
 
 public class Log
 {
+    /// <summary>
+    /// Specifies the path for the temperature log. Provides a mechanism to write a temperature report to the temperature log. 
+    /// </summary>
+
     public string path { get; set; }
 
-    public Log() { } //Needed for initialization
+    public Log() { } 
 
     public Log (string path)
 	{
@@ -20,3 +24,4 @@ public class Log
         file.Close();
     }
 }
+

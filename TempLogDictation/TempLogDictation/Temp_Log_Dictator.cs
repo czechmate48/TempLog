@@ -1,4 +1,9 @@
-﻿using System;
+﻿/* Created by Christopher N. Sefcik
+ * Date: September 5, 2020
+ * Version: 2.0
+ */
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -23,8 +28,6 @@ using System.Threading;
 
 namespace TempLogDictation
 {
-    //FIXME -> When should sounds be called if both Popups and commands manage them?
-
     public partial class Temp_Log_Dictator : Form
     {
         private Mode cur_mode;
@@ -41,7 +44,7 @@ namespace TempLogDictation
         private List<Command> usernames;
         private List<Command> temperatures;
 
-        private Configuration path_config = new Configuration("C:\\Users\\cnsef\\source\\repos\\TempLogDictation\\TempLogDictation\\bin\\Debug\\Configuration\\Path_Config.txt"); //FIXME -> Set relative
+        private Configuration path_config = new Configuration("Configuration\\Path_Config.txt");
         private Configuration tempLog_config;
         private Configuration usernameCmds_config;
         private Configuration tempCmds_config;
@@ -56,7 +59,8 @@ namespace TempLogDictation
         private Log tempLog = new Log();
 
         private SpeechRecognitionEngine srEngine;
-        private Task_Sequence cur_task_sequence;
+        private Timeout timeout_counter;
+        private delegate void SafeCallDelegate();
 
         /**************************/
         /* INITIALIZE             */
@@ -79,6 +83,7 @@ namespace TempLogDictation
 
             Initialize_Command_Libraries();
             Load_Modes(); //Build Modes here
+
             Initialize_Email();
             Initialize_TempLog();
 
@@ -111,8 +116,9 @@ namespace TempLogDictation
                 new List<ActionEvent> { new Set_Dictation_Mode_Active(), new Set_Button_Dicatate()});
             stop = new Command("Stop", new SoundPlayer(@"C:\Windows\Media\Speech Off.wav"),
                 new List<ActionEvent> { new Set_Standby_Mode_Active(), new Clear_Name_Temp(), new Set_Button_Standby()});
-            clear = new Command("Clear", new SoundPlayer(@"C:\Windows\Media\Windows Balloon.wav"), new List<ActionEvent> { new Clear_Name_Temp()});
-            send = new Command("Send", new SoundPlayer(@"C:\Windows\Media\chord.wav"), new List<ActionEvent>{ new Send_TempReport() }); //Create empty command so send is present in cmd_library. Update with correct values in Command_Recognized()
+            clear = new Command("Clear", new SoundPlayer(@"C:\Windows\Media\Windows Balloon.wav"), 
+                new List<ActionEvent> { new Clear_Name_Temp(), new Reset_Timeout_Counter()});
+            send = new Command("Send", new List<ActionEvent>{ new Send_TempReport() }); //Create empty command so send is present in cmd_library. Update with correct values in Command_Recognized()
         }
 
         private void Load_Configuration_Files()
@@ -162,10 +168,28 @@ namespace TempLogDictation
             dictate_library = new CommandLibrary(dictate_commands);
         }
 
+        private void Initialize_Timeout_Counter()
+        {
+            timeout_counter = new Timeout(Convert.ToInt32(tempLog_config.contents["timeout_duration"]));
+            timeout_counter.Set_Event_Handler(TimedOut);
+        }
+
+        private void TimedOut(object sender, EventArgs e)
+        {
+            if (dictate_btn.InvokeRequired)
+            {
+                dictate_btn.Invoke(new SafeCallDelegate(dictate_btn.PerformClick));
+            }
+            else
+            {
+                dictate_btn.PerformClick();
+            }
+        }
+
         private void Load_Modes()
         {
-            standby.cmd_library = standby_library;
-            dictate.cmd_library = dictate_library;
+            standby.Cmd_library = standby_library;
+            dictate.Cmd_library = dictate_library;
             cur_mode = standby;
         }
 
@@ -178,7 +202,7 @@ namespace TempLogDictation
             } else
             {
                 email_on = new Status(Component_Assembly.ON);
-                gsfactory.email_state.status = email_on;
+                gsfactory.Email_state.Status = email_on;
             }
 
             string server = email_config.contents["server"];
@@ -203,13 +227,18 @@ namespace TempLogDictation
             else
             {
                 tempLog_on = new Status(Component_Assembly.ON);
-                gsfactory.tempLog_state.status = tempLog_on;
+                gsfactory.TempLog_state.Status = tempLog_on;
             }
 
             if (tempLog_config.contents["tempLog_on"] != "on") return; //exit
-            else gsfactory.tempLog_state.status = new Status(Component_Assembly.ON);
+            else gsfactory.TempLog_state.Status = new Status(Component_Assembly.ON);
 
-            tempLog.path = tempLog_config.contents["tempLog_savePath"];
+            if (tempLog_config.contents["tempLog_savePath"] != "default") tempLog.path = tempLog_config.contents["tempLog_savePath"];
+            else
+            {
+                string user_profile = Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile);
+                tempLog.path = user_profile + "\\Documents\\TemperatureLog.txt";
+            }
         }
 
         /**************************/
@@ -218,15 +247,15 @@ namespace TempLogDictation
 
         private void Command_Recognized(object sender, SpeechRecognizedEventArgs e)
         {
-            Command command = cur_mode.cmd_library.Get_Command_From_Cue(e.Result.Text);
+            Command command = cur_mode.Cmd_library.Get_Command_From_Cue(e.Result.Text);
             Command_Fire(command);
         }
 
         private void Command_Fire(Command command)
         {
-            cur_task_sequence = command.Generate_Task_Sequence();
             gsfactory_snapshot = gsfactory;
-            foreach (Instruction.Task task in cur_task_sequence.tasks) Command_Execute(command, task);
+            foreach (Instruction.Task task in command.Generate_Task_Sequence().tasks) Command_Execute(command, task);
+            command.PlaySound();
         }
 
         private void Command_Execute(Command command, Instruction.Task task)
@@ -235,7 +264,6 @@ namespace TempLogDictation
             {
                 case Instruction.Task.STOP_VOICE_RECOGNITION:       Disable_Voice_Recognition(); break;
                 case Instruction.Task.START_VOICE_RECOGNITION:      Activate_Voice_Recognition(); break;
-                case Instruction.Task.PLAY_COMMAND_SOUND:           command.sound.Play(); break;
                 case Instruction.Task.CLEAR_NAME:                   name_rtb.Clear(); break;
                 case Instruction.Task.CLEAR_TEMP:                   temp_rtb.Clear(); break;
                 case Instruction.Task.SET_DICTATE_BUTTON_GREEN:     dictate_btn.BackColor = Color.Green; break;
@@ -244,20 +272,22 @@ namespace TempLogDictation
                 case Instruction.Task.SET_BUTTON_TEXT_STOP:         dictate_btn.Text = "STOP"; break;
                 case Instruction.Task.SET_MODE_DICTATE:             cur_mode = dictate; break;
                 case Instruction.Task.SET_MODE_STANDBY:             cur_mode = standby; break;
-                case Instruction.Task.SET_NAME_FILLED:              gsfactory.name_box_state.status = new Status(Component_Assembly.FILLED); break;
-                case Instruction.Task.SET_NAME_UNFILLED:            gsfactory.name_box_state.status = new Status(Component_Assembly.UNFILLED); break;
-                case Instruction.Task.SET_TEMP_FILLED:              gsfactory.temp_box_state.status = new Status(Component_Assembly.FILLED); break;
-                case Instruction.Task.SET_TEMP_UNFILLED:            gsfactory.temp_box_state.status = new Status(Component_Assembly.UNFILLED); break;
-                case Instruction.Task.SET_SEND_BUTTON_CLICKED:      gsfactory.send_btn_state.status = new Status(Component_Assembly.CLICKED); break;
-                case Instruction.Task.SET_SEND_BUTTON_UNCLICKED:    gsfactory.send_btn_state.status = new Status(Component_Assembly.UNCLICKED); break;
+                case Instruction.Task.SET_NAME_FILLED:              gsfactory.Name_box_state.Status = new Status(Component_Assembly.FILLED); break;
+                case Instruction.Task.SET_NAME_UNFILLED:            gsfactory.Name_box_state.Status = new Status(Component_Assembly.UNFILLED); break;
+                case Instruction.Task.SET_TEMP_FILLED:              gsfactory.Temp_box_state.Status = new Status(Component_Assembly.FILLED); break;
+                case Instruction.Task.SET_TEMP_UNFILLED:            gsfactory.Temp_box_state.Status = new Status(Component_Assembly.UNFILLED); break;
+                case Instruction.Task.SET_SEND_BUTTON_CLICKED:      gsfactory.Send_btn_state.Status = new Status(Component_Assembly.CLICKED); break;
+                case Instruction.Task.SET_SEND_BUTTON_UNCLICKED:    gsfactory.Send_btn_state.Status = new Status(Component_Assembly.UNCLICKED); break;
                 case Instruction.Task.WRITE_NAME:                   name_rtb.Text = command.cue; break;   
                 case Instruction.Task.WRITE_TEMP:                   temp_rtb.Text = command.cue; break;
                 case Instruction.Task.SEND_EMAIL:                   Send_Email(new TempReport(name_rtb.Text,temp_rtb.Text)); break;
                 case Instruction.Task.SEND_LOG:                     Send_Log(new TempReport(name_rtb.Text, temp_rtb.Text)); break;
-                case Instruction.Task.RESET_EMAIL_STATUS:           gsfactory.email_state.status = email_on; break;
-                case Instruction.Task.RESET_LOG_STATUS:             gsfactory.tempLog_state.status = tempLog_on; break;
+                case Instruction.Task.RESET_EMAIL_STATUS:           gsfactory.Email_state.Status = email_on; break;
+                case Instruction.Task.RESET_LOG_STATUS:             gsfactory.TempLog_state.Status = tempLog_on; break;
                 case Instruction.Task.UPDATE_GUI:                   gsfactory.Create_GUIState(); break;
                 case Instruction.Task.DISPLAY_POPUP:                GUIState gs = gsfactory.Create_GUIState(); gs.DisplayPopUp(); break;
+                case Instruction.Task.START_TIMEOUT_COUNTER:        Initialize_Timeout_Counter(); timeout_counter.Start(); break;
+                case Instruction.Task.STOP_TIMEOUT_COUNTER:         if (timeout_counter != null) timeout_counter.Stop(); break;
                 default: break;
             }
         }
@@ -271,7 +301,7 @@ namespace TempLogDictation
         {
             srEngine = new SpeechRecognitionEngine(new CultureInfo("en-US"));
             srEngine.SetInputToDefaultAudioDevice();
-            GrammarBuilder builder = new GrammarBuilder(new Choices(cur_mode.cmd_library.Get_Command_Cues()));
+            GrammarBuilder builder = new GrammarBuilder(new Choices(cur_mode.Cmd_library.Get_Command_Cues()));
             srEngine.LoadGrammarAsync(new Grammar(builder));
             srEngine.RecognizeAsync(RecognizeMode.Multiple);
             srEngine.SpeechRecognized += Command_Recognized;
@@ -284,15 +314,15 @@ namespace TempLogDictation
 
             try
             {
-                email.message = tr.Get_Report();
-                email.subject = tr.Get_Report();
+                email.Message = tr.Get_Report();
+                email.Subject = tr.Get_Report();
                 email.Update();
                 email.Send();
-                gsfactory.email_state.status = new Status(Component_Assembly.PASS);
+                gsfactory.Email_state.Status = new Status(Component_Assembly.PASS);
             }
             catch
             {
-                gsfactory.email_state.status = new Status(Component_Assembly.FAIL);
+                gsfactory.Email_state.Status = new Status(Component_Assembly.FAIL);
             }
         }
 
@@ -304,11 +334,11 @@ namespace TempLogDictation
             try
             {
                 tempLog.Write_TempReport(tr);
-                gsfactory.tempLog_state.status = new Status(Component_Assembly.PASS);
+                gsfactory.TempLog_state.Status = new Status(Component_Assembly.PASS);
             }
             catch
             {
-                gsfactory.tempLog_state.status = new Status(Component_Assembly.FAIL);
+                gsfactory.TempLog_state.Status = new Status(Component_Assembly.FAIL);
             }
         }
 
@@ -320,8 +350,8 @@ namespace TempLogDictation
 
         private void Email_Click(object sender, EventArgs e)
         {
-            if (name_rtb.TextLength > 0) { gsfactory.name_box_state.status = new Status(Component_Assembly.FILLED); }
-            if (temp_rtb.TextLength > 0) { gsfactory.temp_box_state.status = new Status(Component_Assembly.FILLED); }
+            if (name_rtb.TextLength > 0) { gsfactory.Name_box_state.Status = new Status(Component_Assembly.FILLED); }
+            if (temp_rtb.TextLength > 0) { gsfactory.Temp_box_state.Status = new Status(Component_Assembly.FILLED); }
             Command_Fire(send);
         }
 

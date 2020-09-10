@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.902
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TempLogDictation", "TempLogDictation\TempLogDictation.csproj", "{B406922D-73D4-4A06-AB67-E64E80D6C317}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup1\Setup1.vdproj", "{261C5F60-A48E-4FDF-9075-A91BBCB1D248}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,8 @@ Global
 		{B406922D-73D4-4A06-AB67-E64E80D6C317}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B406922D-73D4-4A06-AB67-E64E80D6C317}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B406922D-73D4-4A06-AB67-E64E80D6C317}.Release|Any CPU.Build.0 = Release|Any CPU
+		{261C5F60-A48E-4FDF-9075-A91BBCB1D248}.Debug|Any CPU.ActiveCfg = Debug
+		{261C5F60-A48E-4FDF-9075-A91BBCB1D248}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

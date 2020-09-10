@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Temp_Log_Dictator));
             this.name_rtb = new System.Windows.Forms.RichTextBox();
             this.send_btn = new System.Windows.Forms.Button();
             this.dictate_btn = new System.Windows.Forms.Button();
@@ -295,6 +296,7 @@
             this.Controls.Add(this.dictate_btn);
             this.Controls.Add(this.send_btn);
             this.Controls.Add(this.name_rtb);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Temp_Log_Dictator";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TEMPERATURE LOG";

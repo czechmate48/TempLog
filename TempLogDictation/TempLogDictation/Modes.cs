@@ -5,15 +5,18 @@ namespace Modes
 {
     public class Mode
     {
-        public CommandLibrary cmd_library { get; set; }
+        /// <summary>
+        /// Wrapper class that holds various command libraries
+        /// </summary>
+
+        public CommandLibrary Cmd_library { get; set; }
+
+        public Mode() { }
 
         public Mode(CommandLibrary cmd_library)
         {
-            this.cmd_library = cmd_library;
+            this.Cmd_library = cmd_library;
         }
-
-        public Mode() { } //Needed for initialization
-
     }
 }
 
