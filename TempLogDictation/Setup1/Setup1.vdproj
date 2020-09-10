@@ -15,19 +15,13 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_319C2DB2E8684A60AAF732139964F780"
+        "MsmKey" = "8:_33711BAC85E648429484447041E4AFC7"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_390150D8FAA044D2AE5ECE5FC01E0BDC"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_41729809465E4136B9FBEA54CA462560"
+        "MsmKey" = "8:_5E905688A688408C9D52700A463694A0"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -39,7 +33,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_AA774D4017B742C1AC8D58597B3CED5D"
+        "MsmKey" = "8:_65DF099A081E4D0BA27FA815878403ED"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_953B5C02A5C94BF9875EE0586D556158"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -51,19 +51,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_DB28CBD1882943D790915475DB61A5DA"
+        "MsmKey" = "8:_D9B0A2AC165B4EFC8D5A079A1596C5A5"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_DCEFF55B84094612B4B29F783FBE4A68"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_EB80CCC4FFFA464AA0AC9B0B1768BDBB"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -166,10 +160,10 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_319C2DB2E8684A60AAF732139964F780"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_33711BAC85E648429484447041E4AFC7"
             {
-            "SourcePath" = "8:..\\TempLogDictation\\bin\\Release\\Configuration\\UsernameCmds_Config.txt"
-            "TargetName" = "8:UsernameCmds_Config.txt"
+            "SourcePath" = "8:..\\TempLogDictation\\bin\\Release\\Configuration\\TempLog_Config.txt"
+            "TargetName" = "8:TempLog_Config.txt"
             "Tag" = "8:"
             "Folder" = "8:_6DC599FF9A5840B585CBF257D12FCEE1"
             "Condition" = "8:"
@@ -186,30 +180,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_390150D8FAA044D2AE5ECE5FC01E0BDC"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5E905688A688408C9D52700A463694A0"
             {
-            "SourcePath" = "8:..\\TempLogDictation\\bin\\Release\\Configuration\\TempCmds_Config.txt"
-            "TargetName" = "8:TempCmds_Config.txt"
-            "Tag" = "8:"
-            "Folder" = "8:_6DC599FF9A5840B585CBF257D12FCEE1"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_41729809465E4136B9FBEA54CA462560"
-            {
-            "SourcePath" = "8:..\\TempLogDictation\\bin\\Release\\Configuration\\Path_Config.txt"
-            "TargetName" = "8:Path_Config.txt"
+            "SourcePath" = "8:..\\TempLogDictation\\bin\\Release\\Configuration\\Email_Config.txt"
+            "TargetName" = "8:Email_Config.txt"
             "Tag" = "8:"
             "Folder" = "8:_6DC599FF9A5840B585CBF257D12FCEE1"
             "Condition" = "8:"
@@ -257,10 +231,30 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AA774D4017B742C1AC8D58597B3CED5D"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_65DF099A081E4D0BA27FA815878403ED"
             {
-            "SourcePath" = "8:..\\..\\..\\..\\..\\Public\\Documents\\TemperatureLog.txt"
-            "TargetName" = "8:TemperatureLog.txt"
+            "SourcePath" = "8:..\\TempLogDictation\\bin\\Release\\Configuration\\TempCmds_Config.txt"
+            "TargetName" = "8:TempCmds_Config.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_6DC599FF9A5840B585CBF257D12FCEE1"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_953B5C02A5C94BF9875EE0586D556158"
+            {
+            "SourcePath" = "8:..\\TempLogDictation\\bin\\Release\\Configuration\\Path_Config.txt"
+            "TargetName" = "8:Path_Config.txt"
             "Tag" = "8:"
             "Folder" = "8:_6DC599FF9A5840B585CBF257D12FCEE1"
             "Condition" = "8:"
@@ -297,30 +291,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DB28CBD1882943D790915475DB61A5DA"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D9B0A2AC165B4EFC8D5A079A1596C5A5"
             {
-            "SourcePath" = "8:..\\TempLogDictation\\bin\\Release\\Configuration\\Email_Config.txt"
-            "TargetName" = "8:Email_Config.txt"
-            "Tag" = "8:"
-            "Folder" = "8:_6DC599FF9A5840B585CBF257D12FCEE1"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EB80CCC4FFFA464AA0AC9B0B1768BDBB"
-            {
-            "SourcePath" = "8:..\\TempLogDictation\\bin\\Release\\Configuration\\TempLog_Config.txt"
-            "TargetName" = "8:TempLog_Config.txt"
+            "SourcePath" = "8:..\\TempLogDictation\\bin\\Release\\Configuration\\UsernameCmds_Config.txt"
+            "TargetName" = "8:UsernameCmds_Config.txt"
             "Tag" = "8:"
             "Folder" = "8:_6DC599FF9A5840B585CBF257D12FCEE1"
             "Condition" = "8:"
@@ -416,7 +390,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:TempLog"
         "ProductCode" = "8:{553458FD-D7C5-4301-8B84-C8187D5AC6DE}"
-        "PackageCode" = "8:{A2636CA5-9158-4524-AFFD-4086DF4E6E7D}"
+        "PackageCode" = "8:{14C924D7-F796-497F-A476-89751E3AB093}"
         "UpgradeCode" = "8:{40C63DD5-FE60-4BA8-B820-55B120AB73C5}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
@@ -536,7 +510,21 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_49179F9BC55942ED9D436A3B772B1EB3"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_B6FB82EB1562478E94A71C21A0B12BA0"
+            {
+            "Name" = "8:TempLog"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_DCEFF55B84094612B4B29F783FBE4A68"
+            "Folder" = "8:_C3009422E9784362921C1104824F7191"
+            "WorkingFolder" = "8:_F4A95080F70D4AD3A835140382CF5871"
+            "Icon" = "8:_C5B8AED44B524D7BBA59735E756B813C"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_F15B8F2A479A4FA48C27AE9F65C8CD5A"
             {
             "Name" = "8:TempLog"
             "Arguments" = "8:"
