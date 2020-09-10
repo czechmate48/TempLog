@@ -7,5 +7,3 @@ sender_email_address=test@gmail.com
 sender_name=Temperature Report
 subject=Temperature Report
 recipient_email_address=test@yahoo.com
-
-
